@@ -1,15 +1,13 @@
-<%@page import="dao.ProductRepository"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.List" %>
 <%@ page import="dto.Product" %>
-<!-- session 서버측에 저장 -->
 <jsp:useBean id="repository" class="dao.ProductRepository" scope="session" />
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>상품 목록</title>
+<title>Insert title here</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
@@ -21,34 +19,29 @@
       <div class="container">
         <!-- display-3 : 큰 글자중에 보통 크기 -->
         <h1 class="display-3">
-           상품 목록
+           상품 상세 정보
         </h1>
       </div>
     </div>
     <%
-    List<Product> products = repository.getAllProducts();   
+    // poduct.jsp?id=p1234 이런식으로 넘어온 값 얻기
+    String id = request.getParameter("id");
+    Product product = repository.getProductById(id);
     %>
     <div class="container">
-	  <div class="row text-center">
-	    <%
-	    for (Product product : products) {
-	    %>
-	       <div class="col-md-4">
-	           <h3><%= product.getName() %></h3>
-	           <p><%= product.getDescription() %></p>
-	           <p><%= product.getUnitPrice() %>원</p>
-	           <p>
-	               <a class="btn btn-secondary" role="button" href="./product.jsp?id=<%= product.getProductId() %>">
-	                   상세 정보 &raquo;
-	               </a>
-               </p>
-	       </div>
-	    <%    
-	    }
-	    %>
-	  </div>
-	</div>
-	
+      <div class="row">
+          <div class="col-md-6">
+              <h3><%= product.getName() %></h3>
+              <p><%= product.getDescription() %></p>
+              <!-- 나머지는 책에 있음 p.174 -->
+              <p>
+                <a href="#" class="btn btn-info">상품 주문 &raquo;</a>
+                <a href="./products.jsp" class="btn btn-secondary">상품 목록 &raquo;</a> 
+              </p>
+          </div>
+      </div>
+    </div>
+    
     <jsp:include page="footer.jsp" />
 </body>
 </html>
