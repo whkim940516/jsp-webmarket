@@ -20,7 +20,7 @@ public class ProductRepository {
 		phone.setCategory("New");
 		phone.setCondition("New");
 		
-		Product notebook = new Product("P1234", "LG PC 占쌓뤄옙", 1500000);
+		Product notebook = new Product("P1234", "LG PC", 1500000);
 		notebook.setDescription("4.7-inch, 1334X750 Retina HD display, 어쩌구");
 		notebook.setCategory("Smart Phone");
 		notebook.setManufacturer("LG");
