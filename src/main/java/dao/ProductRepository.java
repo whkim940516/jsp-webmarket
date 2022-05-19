@@ -11,6 +11,7 @@ public class ProductRepository {
 	
 	// 원래는 DB에서 가져올 데이터
 	// 지금 DB 안 배워서 그냥 3개 만든 것임
+	
 	public ProductRepository() {
 		Product phone = new Product("P1234", "iphone 6s", 800000);
 		phone.setDescription("4.7-inch, 1334X750 Retina HD display, 어쩌구");
@@ -43,6 +44,8 @@ public class ProductRepository {
 	public List<Product> getAllProducts() {
 		return products;
 	}
+	
+
 	
 }
 
