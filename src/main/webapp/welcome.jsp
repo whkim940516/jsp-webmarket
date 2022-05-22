@@ -50,6 +50,10 @@
 	    SimpleDateFormat format = new SimpleDateFormat("hh:mm:ss a");
 	    
 	    out.println("현재 접속 시간: " + format.format(today));
+	    
+	    session.setAttribute("name", "오준석");
+	    session.setAttribute("age", 23); 
+	    
 	    %>
 	  </div>
 	</div>

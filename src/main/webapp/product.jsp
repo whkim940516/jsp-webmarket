@@ -27,6 +27,7 @@
     // poduct.jsp?id=p1234 이런식으로 넘어온 값 얻기
     String id = request.getParameter("id");
     Product product = repository.getProductById(id);
+    // test
     %>
     <div class="container">
       <div class="row">

@@ -26,12 +26,16 @@
       </div>
     </div>
     <%
+    out.println(session.getAttribute("name"));
+    out.println(session.getAttribute("age"));
+    
+    
     List<Product> products = repository.getAllProducts();   
     %>
     <div class="container">
 	  <div class="row text-center">
 	    <%
-	    for (Product product : products) {
+	    for (Product product : products) {   
 	    %>
 	       <div class="col-md-4">
 	           <h3><%= product.getName() %></h3>
