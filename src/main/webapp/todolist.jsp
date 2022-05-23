@@ -1,3 +1,5 @@
+<%@page import="dto.Todo"%>
+<%@page import="java.util.List"%>
 <%@page import="dao.TodoRepository"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
   <!DOCTYPE html>
@@ -14,21 +16,37 @@
     <title>Todo List</title>
     <script>
       function setDone(id) {
+    	  $.ajax({
+              url: "toggleTodo.do",
+              type: "post",
+              data: { "id": id },
+              success: function (data) {
+                  window.location.reload();
+              }
+          });
       }
       function addTodo() {
     	  console.log('클릭!!!!');
-    	  
-    	 let task = $("#text").val();
-    	 $.ajax({
-    		  url: "processAddTodo.jsp",
+    	  // post 방식으로 processAddTodo.jsp?task=어쩌구
+          let task = $("#text").val();
+    	  $.ajax({
+    		  url: "addTodo.do",
     		  type: "post",
-    		  data: { "task": task},
-    	 	  success: function(data) {
-    	 		  window.location.reload();  // 형식이 끝나면 reload해줌
-    	 	  }
+    		  data: { "task": task },
+    		  success: function (data) {
+    			  window.location.reload();
+    		  }
     	  });
       }
       function remove(id) {
+    	  $.ajax({
+              url: "removeTodo.do",
+              type: "post",
+              data: { "id": id },
+              success: function (data) {
+                  window.location.reload();
+              }
+          });
       }
     </script>
   </head>
@@ -36,7 +54,7 @@
   <body>
     <%
     TodoRepository repository = TodoRepository.getInstance();
-    out.println(repository.getTodos());
+    List<Todo> todos = repository.getTodos();
     %>
     <div class="todo-list-template">
       <div class="title">오늘 할 일</div>
@@ -49,15 +67,23 @@
       </section>
 
       <section class="todos-wrapper">
-        <div class="todo-item">
-          <div class="remove">&times;</div>
-          <div class="todo-text checked">숙제</div>
-          <div class="check-mark">&#x2713;</div>
-        </div>
-        <div class="todo-item">
-          <div class="remove">&times;</div>
-          <div class="todo-text">청소</div>
-        </div>
+        <%
+        for (Todo todo : todos) {
+        %>
+            <div class="todo-item" onclick="setDone(<%= todo.getId() %>)">
+	          <div class="remove" onclick="remove(<%= todo.getId() %>)">&times;</div>
+	          <div class="todo-text <%= todo.isDone() ? "checked" : "" %>"><%= todo.getTask() %></div>
+	          <%
+	          if (todo.isDone()) {
+	          %>
+	             <div class="check-mark">&#x2713;</div>
+	          <%
+	          }
+	          %>
+	        </div>
+        <%
+        }
+        %>
       </section>
     </div>
   </body>
